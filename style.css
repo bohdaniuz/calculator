@@ -1,0 +1,70 @@
+
+
+#buttons {
+    display: grid;
+    grid-template-columns: repeat(4,121px);
+    grid-area: num;
+    margin: auto;
+    width: 484px;
+
+}
+
+#formulaField, #numField {
+    background-color: rgb(75,81,84)
+}
+
+#formulaField {
+    grid-column: 1 / -1;
+    color: white;
+    height: 28px;
+}
+
+#formulaField p {
+    text-align: right;
+    margin-right: 20px;
+    font-size: 10px;
+}
+
+#numField {
+    grid-column: 1 / -1;
+    height: 56px;
+    color: white;
+}
+
+#numField h5 {
+    text-align: right;
+    margin-right: 20px;
+    font-size: 20px;
+    margin-top: 20px;
+}
+
+#eqlBtn {
+    background-color: rgb(147,123,50);
+}
+
+#eqlBtn:hover{
+    background-color: rgb(237,174,9);
+}
+
+.numBtn,.oprBtn {
+    color: white;
+    font-size: 16px;
+    width: 121px;
+    height: 56px;
+    border-radius: 0px;
+    border: solid 1px rgb(76,82,85);
+}
+
+.numBtn {
+    background-color: rgb(15,16,17);
+    font-weight: bold;
+}
+
+
+.oprBtn {
+    background-color: rgb(46,49,51);
+}
+
+.numBtn:hover, .oprBtn:hover {
+    background-color: rgb(103,108,111)
+}
