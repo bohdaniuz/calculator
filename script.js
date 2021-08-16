@@ -4,6 +4,7 @@ let numBtns = document.querySelectorAll('.numBtn');
 let oprBtns = document.querySelectorAll('.oprBtn');
 let eqlBtn = document.getElementById('eqlBtn');
 let displayValue = document.getElementById('displayValue');
+let formulaDisplay = document.getElementById('formulaDisplay');
 
 // Variables
 
@@ -23,29 +24,42 @@ function division (x, y) {
 function multiplication (x, y) {
     return x * y;
 }
-function operate() {
-    calculation.value2 = parseInt(tempVal);
-    console.log(map.get(calculation.operator)(calculation.value1, calculation.value2));
+function operateEquals() {
+    calculation.value2 = parseFloat(tempVal);
+    displayValue.innerHTML = map.get(calculation.operator)(calculation.value1, calculation.value2);
+    formulaDisplay.innerHTML = `${calculation.value1} ` + `${calculation.operator}` + ` ${calculation.value2}` + ' =';
     calculation.value1 = null;
     calculation.value2 = null;
     tempVal = '';
 }
+function operate() {
 
-// Other Functions
+}
+
+// Event Listener Functions
 
 function oprEvent() {
-    
-
     if (calculation.value1 == null) {
         calculation.operator = this.value;
         calculation.value1 = parseFloat(tempVal);
         tempVal = '';
+        formulaDisplay.innerHTML = `${calculation.value1} ` + `${calculation.operator}`;
     }
-    else {
+    else if (calculation.value2 == null) {
         calculation.value2 = parseFloat(tempVal);
     }
+    else {
+        operate();
+    }
 }
+function numEvent() {
+    if (calculation.value1 == null) {
+        formulaDisplay.innerHTML = '';
+    }
 
+    tempVal += this.value;
+    displayValue.innerHTML = tempVal;
+}
 // Creates a map that links each operator to a respective function
 
 let map = new Map();
@@ -65,19 +79,8 @@ let calculation = {
 
 // Event Listeners
 
-numBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-        tempVal += btn.value;
-        displayValue.innerHTML = tempVal;
-    })
-});
+numBtns.forEach(btn => btn.addEventListener('click', numEvent));
 
-/* numBtns.forEach(btn => 
-btn.addEventListener
-    ('click', () => tempVal += btn.value)); */
+oprBtns.forEach(btn => btn.addEventListener('click', oprEvent));
 
-oprBtns.forEach(btn => {
-    btn.addEventListener('click', oprEvent);
-});
-
-eqlBtn.addEventListener('click', operate);
+eqlBtn.addEventListener('click', operateEquals);

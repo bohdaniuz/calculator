@@ -44,7 +44,7 @@
     background-color: rgb(237,174,9);
 }
 
-.numBtn,.oprBtn {
+.numBtn,.oprBtn, #eqlBtn {
     color: white;
     font-size: 16px;
     width: 121px;
