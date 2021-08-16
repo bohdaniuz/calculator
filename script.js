@@ -1,58 +1,83 @@
+// DOM Selectors
+
 let numBtns = document.querySelectorAll('.numBtn');
 let oprBtns = document.querySelectorAll('.oprBtn');
-let field = document.getElementById('numNum');
-let formulaDisplay = document.getElementById('formulaDisplay'); 
-let displayValue = '';
-let x = ''
-let operands = [];
+let eqlBtn = document.getElementById('eqlBtn');
+let displayValue = document.getElementById('displayValue');
 
-const map = new Map();
+// Variables
 
-map.set('+', add);
-map.set('-', subtract);
-map.set('x', multiply);
-map.set('/', divide);
+let tempVal = '' // Stores temporary value while user clicks number button
 
+// Computational Functions
 
-function add(x, y) {
+function addition (x, y) {
     return x + y;
 }
-
-function subtract(x, y) {
+function subtraction (x, y) {
     return x - y;
 }
-
-function multiply(x, y) {
-    return x * y;
-}
-
-function divide(x, y) {
+function division (x, y) {
     return x / y;
 }
-
-function operate(x, y, z) {
-    map.get(`${z}`);
-
-} 
-
-let hypo = {
-    num1: 5,
-    num2: 10,
-    operator: '+',
+function multiplication (x, y) {
+    return x * y;
+}
+function operate() {
+    calculation.value2 = parseInt(tempVal);
+    console.log(map.get(calculation.operator)(calculation.value1, calculation.value2));
+    calculation.value1 = null;
+    calculation.value2 = null;
+    tempVal = '';
 }
 
+// Other Functions
 
+function oprEvent() {
+    
 
-/** numBtns.forEach(btn => {
-    btn.addEventListener('click', function() {
-        displayValue += btn.value.toString();
-        field.innerHTML = displayValue;
-    });
+    if (calculation.value1 == null) {
+        calculation.operator = this.value;
+        calculation.value1 = parseFloat(tempVal);
+        tempVal = '';
+    }
+    else {
+        calculation.value2 = parseFloat(tempVal);
+    }
+}
+
+// Creates a map that links each operator to a respective function
+
+let map = new Map();
+
+map.set('+', addition);
+map.set('-', subtraction);
+map.set('/', division);
+map.set('x', multiplication);
+
+// Object used to store values for calculations
+
+let calculation = {
+    operator: '+',
+    value1: null,
+    value2: null,
+}
+
+// Event Listeners
+
+numBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        tempVal += btn.value;
+        displayValue.innerHTML = tempVal;
+    })
 });
 
+/* numBtns.forEach(btn => 
+btn.addEventListener
+    ('click', () => tempVal += btn.value)); */
+
 oprBtns.forEach(btn => {
-    btn.addEventListener('click', function() {
-        x = parseInt(displayValue);
-        formulaDisplay.innerHTML += displayValue + btn.value.toString();
-    })
-});*/
+    btn.addEventListener('click', oprEvent);
+});
+
+eqlBtn.addEventListener('click', operate);
